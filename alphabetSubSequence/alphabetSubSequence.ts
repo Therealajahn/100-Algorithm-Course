@@ -29,9 +29,24 @@ function alphabetSubsequence(s: string): boolean {
     //Supplied Solution
 
     function alphabetSubsequenceA(s: string): boolean {
+      const chars: string[] = s.split('');
+      let charValues: number[] = [];
+      chars.forEach((char: string) => {
+            charValues.push(char.charCodeAt(0));
+      });
+      
+      if(new Set(charValues).size !== charValues.length){
+          return false;
+      }
+
+      for(let i = 0; i < charValues.length - 1; i++){
+          if(charValues[i] >= charValues[i + 1]) {
+              return false;
+          }
+      }
 
 
-    
+        return true;
     }
     
     console.log(alphabetSubsequenceA('zab'))
@@ -39,4 +54,29 @@ function alphabetSubsequence(s: string): boolean {
     console.log(alphabetSubsequenceA('cdce'))
     console.log(alphabetSubsequenceA('ace'))
     console.log(alphabetSubsequenceA('bxz'))
+
+    //Supplied Solution(reworked)
+
+    function alphabetSubsequenceB(s: string): boolean {
+        const chars: string[] = s.split('');
+        let charValues: number[] = [];
+        chars.forEach((char: string) => {
+              charValues.push(char.charCodeAt(0));
+        });
+        // Duplicates don't need filtering if you return false 
+        //for a char code that is the same as the next
+        for(let i = 0; i < charValues.length - 1; i++){
+            if(charValues[i] >= charValues[i + 1]) {
+                return false;
+            }
+        }
+         
+        return true;
+      }
+      
+      console.log(alphabetSubsequenceB('zab'))
+      console.log(alphabetSubsequenceB('effg'))
+      console.log(alphabetSubsequenceB('cdce'))
+      console.log(alphabetSubsequenceB('ace'))
+      console.log(alphabetSubsequenceB('bxz'))
     
